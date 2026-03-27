@@ -1,8 +1,9 @@
 "use client";
 
-import { Shield, Globe, Terminal } from "lucide-react";
+import { Terminal } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import Image from "next/image";
 
 export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
@@ -15,14 +16,13 @@ export default function Navbar() {
           animate={{ opacity: 1, x: 0 }}
           className="flex items-center gap-3"
         >
-          <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center shadow-lg shadow-slate-200">
-            <Shield className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex flex-col -space-y-1">
-            <span className="text-2xl font-black tracking-tighter text-slate-900">
-              JAGA<span className="text-emerald-500">.</span>
-            </span>
-            <span className="text-[8px] font-black uppercase tracking-[0.3em] text-slate-400 italic">AI Security</span>
+          <div className="relative w-48 h-12">
+            <Image 
+              src="/assets/Logo.png" 
+              alt="JAGA Logo" 
+              fill
+              className="object-contain"
+            />
           </div>
         </motion.div>
 
