@@ -8,8 +8,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "JAGA - Joint ASEAN Guard AI | Real-Time Phishing Protection",
+  title: "Jaga - AI Phishing Guard",
   description: "Real-Time On-Device AI for Phishing Protection in ASEAN. Protecting people from online scams directly on your smartphone.",
+  icons: {
+    icon: "/assets/Logo.png",
+  },
 };
 
 import { LanguageProvider } from "@/context/LanguageContext";
