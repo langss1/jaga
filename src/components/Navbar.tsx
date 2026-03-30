@@ -9,19 +9,20 @@ export default function Navbar() {
   const { language, setLanguage, t } = useLanguage();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100">
-      <div className="max-w-7xl mx-auto px-6 h-24 flex justify-between items-center">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-slate-100 shadow-sm">
+      <div className="max-w-7xl mx-auto px-6 h-28 flex justify-between items-center">
         <motion.div 
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           className="flex items-center gap-3"
         >
-          <div className="relative w-48 h-12">
+          <div className="relative w-64 h-20 group cursor-pointer">
             <Image 
               src="/assets/Logo.png" 
               alt="JAGA Logo" 
               fill
-              className="object-contain"
+              className="object-contain transition-transform duration-500 group-hover:scale-105"
+              priority
             />
           </div>
         </motion.div>
@@ -29,7 +30,7 @@ export default function Navbar() {
         <motion.div 
           initial={{ opacity: 0, x: 10 }}
           animate={{ opacity: 1, x: 0 }}
-          className="flex items-center gap-6"
+          className="flex items-center gap-8"
         >
           <div className="hidden lg:flex items-center gap-8 mr-4">
             <a href="#features" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-600 transition-colors">Solutions</a>
