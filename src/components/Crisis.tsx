@@ -58,7 +58,7 @@ export default function Crisis() {
           {/* Left: Phishing Image - No floating elements */}
           <div className="lg:w-[40%] relative min-h-[250px] lg:min-h-full">
              <Image 
-               src="/assets/masalah.jpg" 
+               src="/assets/masalah.png" 
                alt="Digital Phishing Threat" 
                fill
                className="object-cover"
@@ -89,8 +89,8 @@ export default function Crisis() {
                     transition={{ duration: 0.5, ease: "easeOut" }}
                     className="space-y-6"
                   >
-                    <div className="p-6 md:p-8 bg-slate-50 border border-slate-100 rounded-2xl relative">
-                       <h3 className="text-xl md:text-2xl font-black text-slate-900 leading-tight mb-4 tracking-tight">
+                    <div className="p-6 md:p-8 bg-slate-100/50 border border-slate-200 rounded-3xl relative">
+                       <h3 className="text-xl md:text-2xl font-black text-slate-900 leading-tight mb-4 tracking-tight min-h-[4rem] md:min-h-[4.5rem] flex items-center">
                          "{newsItems[index].title}"
                        </h3>
                        <div className="flex items-center justify-between">

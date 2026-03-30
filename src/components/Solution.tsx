@@ -1,198 +1,136 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, Mic, Globe, Info, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import { Info, ShieldCheck, Zap, Lock } from "lucide-react";
 
 export default function Solution() {
   const { t } = useLanguage();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
 
   const solutions = [
     {
-      id: "WEB",
-      name: t('sol_web_name'),
-      icon: <Globe className="w-5 h-5" />,
+      title: t('sol_web_name'),
+      subtitle: "Secure Browsing",
       desc: t('sol_web_desc'),
-      img: "/assets/1.png"
+      img: "/assets/1.png",
+      color: "emerald",
+      icon: <ShieldCheck className="w-5 h-5" />
     },
     {
-      id: "MSG",
-      name: t('sol_msg_name'),
-      icon: <MessageSquare className="w-5 h-5" />,
+      title: t('sol_msg_name'),
+      subtitle: "Encrypted Shield",
       desc: t('sol_msg_desc'),
-      img: "/assets/2.png"
+      img: "/assets/2.png",
+      color: "blue",
+      icon: <Lock className="w-5 h-5" />
     },
     {
-      id: "VC",
-      name: t('sol_voice_name'),
-      icon: <Mic className="w-5 h-5" />,
+      title: t('sol_voice_name'),
+      subtitle: "Real-time Guard",
       desc: t('sol_voice_desc'),
-      img: "/assets/3.png"
+      img: "/assets/3.png",
+      color: "emerald",
+      icon: <Zap className="w-5 h-5" />
     }
   ];
 
-  // Auto-slide for mobile & desktop (5 seconds)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const nextIndex = (activeIndex + 1) % solutions.length;
-      setActiveIndex(nextIndex);
-      
-      // Auto-scroll on mobile
-      if (scrollRef.current && window.innerWidth < 1024) {
-        const scrollAmount = window.innerWidth * 0.85 + 32; // card width + gap
-        scrollRef.current.scrollTo({
-          left: nextIndex * scrollAmount,
-          behavior: 'smooth'
-        });
-      }
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [activeIndex, solutions.length]);
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
-      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
-    }
-  };
-
-  const handleScroll = () => {
-    if (scrollRef.current && window.innerWidth < 1024) {
-      const index = Math.round(scrollRef.current.scrollLeft / (window.innerWidth * 0.85 + 32));
-      if (index >= 0 && index < solutions.length && index !== activeIndex) {
-        setActiveIndex(index);
-      }
-    }
-  };
-
   return (
-    <section id="features" className="py-12 md:py-20 px-6 relative bg-white overflow-hidden min-h-fit">
+    <section id="features" className="py-24 md:py-32 px-6 relative bg-white border-y border-slate-100 overflow-hidden">
       
-      {/* Tech Grid Background */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b981_1px,transparent_1px),linear-gradient(to_bottom,#10b981_1px,transparent_1px)] bg-[size:40px_40px]" />
-      </div>
+      {/* Decorative ambient light */}
+      <div className="absolute top-0 left-1/4 w-[40%] h-[40%] bg-emerald-50/20 blur-[120px] rounded-full -z-10" />
+      <div className="absolute bottom-0 right-1/4 w-[40%] h-[40%] bg-blue-50/20 blur-[120px] rounded-full -z-10" />
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className="text-center mb-10 space-y-2">
-           <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 leading-none">
-            {t('solution_title')}
-          </h2>
-          <p className="text-slate-500 text-sm md:text-base max-w-xl mx-auto font-medium">
-            {t('solution_desc')}
-          </p>
-        </div>
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           className="text-center mb-24 space-y-4"
+        >
+           <h2 className="text-4xl md:text-7xl font-black tracking-tighter text-slate-900 mx-auto max-w-4xl leading-none">
+             {t('solution_title')}
+           </h2>
+           <p className="text-slate-400 text-lg md:text-xl font-bold max-w-2xl mx-auto">{t('solution_desc')}</p>
+        </motion.div>
 
-        {/* Carousel Container */}
-        <div className="relative">
-          
-          {/* Mobile-Only Controls */}
-          <div className="lg:hidden absolute left-0 top-[35%] -translate-y-1/2 z-20 pointer-events-none w-full flex justify-between px-2">
-             <button 
-               onClick={() => scroll('left')}
-               className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-slate-100 flex items-center justify-center shadow-lg active:scale-90 pointer-events-auto"
-             >
-                <ChevronLeft className="w-4 h-4 text-slate-600" />
-             </button>
-             <button 
-               onClick={() => scroll('right')}
-               className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-slate-100 flex items-center justify-center shadow-lg active:scale-90 pointer-events-auto"
-             >
-                <ChevronRight className="w-4 h-4 text-slate-600" />
-             </button>
-          </div>
+        <div className="flex flex-col gap-32 md:gap-48">
+          {solutions.map((sol, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${idx % 2 === 0 ? '' : 'md:flex-row-reverse'}`}
+            >
+              {/* Image Side - Mockup HP Full */}
+              <div className="w-full md:w-1/2 relative flex justify-center">
+                 <div className={`absolute -inset-10 bg-${sol.color === 'emerald' ? 'emerald' : 'blue'}-500/5 blur-[80px] rounded-full`} />
+                 <motion.div 
+                    animate={{ y: [0, -15, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                    className="relative w-full max-w-[320px] aspect-[9/19] rounded-[3.5rem] overflow-hidden border-[1px] border-slate-100 shadow-2xl bg-white ring-8 ring-slate-100/50"
+                 >
+                    <Image 
+                      src={sol.img} 
+                      alt={sol.title} 
+                      fill
+                      className="object-contain p-2"
+                    />
+                 </motion.div>
+              </div>
 
-          <div 
-            ref={scrollRef}
-            onScroll={handleScroll}
-            className="flex overflow-x-auto lg:grid lg:grid-cols-3 gap-6 pb-6 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0"
-          >
-            {solutions.map((sol, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="min-w-[80vw] md:min-w-[300px] lg:min-w-0 snap-center"
-              >
-                <div 
-                  className={`group relative bg-white rounded-[2.5rem] p-[2px] transition-all duration-700 h-full overflow-hidden ${activeIndex === idx ? 'scale-[1.01]' : 'opacity-40 scale-[0.98]'}`}
-                >
-                  {/* Border Rotating Segment Animation */}
-                  <AnimatePresence>
-                    {activeIndex === idx && (
-                      <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="absolute inset-0 rounded-[2.5rem] pointer-events-none"
-                      >
-                         <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0deg,transparent_280deg,#10b981_320deg,transparent_360deg)] animate-border-rotate" />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  <div className="bg-white rounded-[2.5rem] p-6 flex flex-col h-full relative z-10 shadow-sm">
-                    {/* Full Mockup Area */}
-                    <div className="relative aspect-[3/2] md:aspect-[4/3] rounded-[1.8rem] overflow-hidden bg-[#fafafa] border border-slate-50 mb-6 group-hover:bg-white transition-all">
-                       <Image 
-                         src={sol.img} 
-                         alt={sol.name} 
-                         fill 
-                         className="object-contain p-2" 
+              {/* Text Side - Enhanced Typography */}
+              <div className="w-full md:w-1/2 space-y-8">
+                 <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white ${sol.color === 'emerald' ? 'bg-emerald-500 shadow-lg shadow-emerald-100' : 'bg-blue-500 shadow-lg shadow-blue-100'}`}>
+                          {sol.icon}
+                       </div>
+                       <span className={`text-xs font-black uppercase tracking-[0.3em] ${sol.color === 'emerald' ? 'text-emerald-500' : 'text-blue-500'}`}>
+                         {sol.subtitle}
+                       </span>
+                    </div>
+                    <h3 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 leading-tight">
+                      {sol.title}
+                    </h3>
+                 </div>
+                 <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed">
+                   {sol.desc}
+                 </p>
+                 <div className="flex items-center gap-4 pt-4">
+                    <div className="h-1.5 w-24 bg-slate-100 rounded-full overflow-hidden">
+                       <motion.div 
+                          initial={{ width: 0 }}
+                          whileInView={{ width: '100%' }}
+                          transition={{ duration: 2, delay: 0.5, ease: "circOut" }}
+                          className={`h-full ${sol.color === 'emerald' ? 'bg-emerald-500' : 'bg-blue-500'}`} 
                        />
                     </div>
-                    
-                    <div className="space-y-3 flex-grow">
-                      <div className="flex items-center gap-3">
-                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-500 shadow-sm ${activeIndex === idx ? 'bg-emerald-600 text-white' : 'bg-emerald-50 text-emerald-600'}`}>
-                            {sol.icon}
-                         </div>
-                         <h3 className={`text-xl font-black tracking-tight transition-colors duration-500 ${activeIndex === idx ? 'text-emerald-600' : 'text-slate-900'}`}>{sol.name}</h3>
-                      </div>
-                      
-                      <p className="text-slate-500 text-xs leading-relaxed font-medium line-clamp-2">{sol.desc}</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          
-          {/* Mobile Indicator Dots */}
-          <div className="flex lg:hidden items-center justify-center gap-3 mt-4">
-             {solutions.map((_, idx) => (
-                <div key={idx} className={`h-1.5 rounded-full transition-all duration-500 ${activeIndex === idx ? 'w-8 bg-emerald-500' : 'w-1.5 bg-slate-200'}`} />
-             ))}
-          </div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-300">Live Protection</span>
+                 </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
         {/* Development Disclaimer */}
-        <div className="mt-8 flex flex-col items-center gap-2 text-center">
-           <div className="flex items-center gap-2 px-4 py-1.5 bg-slate-50 rounded-xl border border-slate-100">
-              <Info className="w-3.5 h-3.5 text-emerald-600" />
-              <p className="text-[10px] font-bold text-slate-500 tracking-tight">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-32 flex flex-col items-center gap-4 text-center"
+        >
+           <div className="flex items-center gap-3 px-8 py-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
+              <Info className="w-5 h-5 text-emerald-600" />
+              <p className="text-xs md:text-sm font-bold text-slate-400 tracking-tight italic">
                 *Mockup masih dalam tahap awal pengembangan (Draft/MVP Phase).
               </p>
            </div>
-        </div>
+        </motion.div>
       </div>
-
-      <style jsx global>{`
-        @keyframes border-rotate {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        .animate-border-rotate {
-          animation: border-rotate 5s linear infinite;
-        }
-      `}</style>
     </section>
   );
 }

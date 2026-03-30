@@ -9,19 +9,15 @@ export default function News() {
       title: "Berita Phising Terkini di Indonesia",
       desc: "Pelajari tren penipuan URL yang sedang viral di grup WhatsApp dan SMS.",
       query: "berita phising terkini di Indonesia 2026",
-      icon: <AlertCircle className="w-6 h-6 text-red-500" />
+      icon: <AlertCircle className="w-6 h-6" />,
+      colorClass: "text-red-500"
     },
     {
       title: "ASEAN Cybersecurity Updates",
       desc: "Laporan harian tentang serangan siber di kawasan Asia Tenggara.",
       query: "phishing attacks in southeast asia recent news",
-      icon: <Globe className="w-6 h-6 text-emerald-500" />
-    },
-    {
-      title: "Tips Keamanan Digital",
-      desc: "Langkah proaktif untuk mengamankan data dan privasi Anda hari ini.",
-      query: "cara mencegah phising dan penipuan online terbaru",
-      icon: <ShieldAlert className="w-6 h-6 text-blue-500" />
+      icon: <Globe className="w-6 h-6" />,
+      colorClass: "text-emerald-500"
     }
   ];
 
@@ -46,11 +42,8 @@ export default function News() {
              viewport={{ once: true }}
              className="space-y-4"
            >
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-50 border border-red-100 text-[10px] font-black text-red-600 tracking-[0.2em] uppercase rounded-lg">
-                 Live Updates
-              </div>
               <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 leading-none">
-                 Tetap Waspada,<br/>Tetap Aman.
+                 Cari berita terkini<br/>tentang phising
               </h2>
            </motion.div>
            
@@ -64,7 +57,7 @@ export default function News() {
            </motion.p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
            {newsPrompts.map((news, idx) => (
               <motion.div
                 key={idx}
@@ -79,7 +72,7 @@ export default function News() {
                 >
                    <div className="mb-8 flex justify-between items-start">
                       <div className="w-14 h-14 bg-white border border-slate-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:bg-emerald-500 group-hover:border-emerald-500 transition-all duration-500">
-                         <span className="group-hover:text-white transition-colors">{news.icon}</span>
+                         <span className={`${news.colorClass} group-hover:text-white transition-colors duration-300`}>{news.icon}</span>
                       </div>
                       <ArrowUpRight className="w-6 h-6 text-slate-300 group-hover:text-emerald-500 transition-colors" />
                    </div>

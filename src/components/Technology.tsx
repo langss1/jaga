@@ -1,113 +1,196 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Cpu, Lock, Smartphone, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function Technology() {
   const { t } = useLanguage();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const techFeatures = [
+  const techPillars = [
     {
       title: "Edge AI & TFLite",
-      subtitle: "Smart Efficiency",
-      desc: "Optimasi model AI super ringan yang berjalan lancar di smartphone spesifikasi rendah tanpa lag.",
-      img: "/assets/Phising.png",
-      color: "emerald"
+      icon: <Cpu className="w-5 h-5" />,
+      desc: "Smartphone spesifikasi rendah tetap terlindungi dengan optimalisasi model AI yang super ringan.",
+      img: "/assets/Phising.png"
     },
     {
       title: "100% On-Device",
-      subtitle: "Privacy First",
-      desc: "Semua data diproses lokal di perangkat Anda. JAGA tidak pernah mengirimkan data pribadi ke cloud.",
-      img: "/assets/Privacy.png",
-      color: "blue"
+      icon: <Lock className="w-5 h-5" />,
+      desc: "Data pribadi Anda diproses secara lokal di dalam perangkat* (Privacy First).",
+      img: "/assets/Privacy.png"
     },
     {
       title: "Low Device Optimized",
-      subtitle: "ASEAN Connectivity",
-      desc: "Hemat baterai dan RAM. Dirancang khusus untuk menjangkau setiap pengguna di seluruh kawasan ASEAN.",
-      img: "/assets/AI.png",
-      color: "emerald"
+      icon: <Smartphone className="w-5 h-5" />,
+      desc: "Hemat baterai dan RAM. JAGA berjalan lancar di berbagai tipe smartphone di ASEAN.",
+      img: "/assets/AI.png"
     }
   ];
 
-  return (
-    <section id="technology" className="py-24 md:py-32 px-6 relative bg-white border-y border-slate-100 overflow-hidden">
+  // Auto-slide for mobile & desktop (5 seconds)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const nextIndex = (activeIndex + 1) % techPillars.length;
+      setActiveIndex(nextIndex);
       
-      {/* Decorative ambient light */}
-      <div className="absolute top-0 left-1/4 w-[40%] h-[40%] bg-emerald-50/20 blur-[120px] rounded-full -z-10" />
-      <div className="absolute bottom-0 right-1/4 w-[40%] h-[40%] bg-blue-50/20 blur-[120px] rounded-full -z-10" />
+      // Auto-scroll on mobile
+      if (scrollRef.current && window.innerWidth < 1024) {
+        const scrollAmount = window.innerWidth * 0.85 + 32; // card width + gap
+        scrollRef.current.scrollTo({
+          left: nextIndex * scrollAmount,
+          behavior: 'smooth'
+        });
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [activeIndex, techPillars.length]);
 
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           className="text-center mb-24 space-y-4"
-        >
-           <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 border border-slate-200 text-[10px] font-black text-slate-500 tracking-[0.2em] uppercase rounded-lg">
-              {t('tech_badge')}
-           </div>
-           <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 mx-auto max-w-3xl">
-             Khawatir Isu Privacy dan Kualitas Perangkat?
-           </h2>
-           <p className="text-slate-400 text-lg font-bold">Pelajari bagaimana JAGA bekerja</p>
-        </motion.div>
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
 
-        <div className="flex flex-col gap-32">
-          {techFeatures.map((feature, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${idx % 2 === 0 ? '' : 'md:flex-row-reverse'}`}
-            >
-              {/* Image Side */}
-              <div className="w-full md:w-1/2 relative">
-                 <div className={`absolute -inset-4 bg-${feature.color === 'emerald' ? 'emerald' : 'blue'}-500/5 blur-[50px] rounded-full`} />
-                 <motion.div 
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="relative rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-2xl"
-                 >
-                    <Image 
-                      src={feature.img} 
-                      alt={feature.title} 
-                      width={800}
-                      height={500}
-                      className="w-full h-auto object-cover"
-                    />
-                 </motion.div>
-              </div>
+  const handleScroll = () => {
+    if (scrollRef.current && window.innerWidth < 1024) {
+      const index = Math.round(scrollRef.current.scrollLeft / (window.innerWidth * 0.85 + 32));
+      if (index >= 0 && index < techPillars.length && index !== activeIndex) {
+        setActiveIndex(index);
+      }
+    }
+  };
 
-              {/* Text Side */}
-              <div className="w-full md:w-1/2 space-y-6">
-                 <div className="space-y-3">
-                    <span className={`text-xs font-black uppercase tracking-[0.3em] ${feature.color === 'emerald' ? 'text-emerald-500' : 'text-blue-500'}`}>
-                      {feature.subtitle}
-                    </span>
-                    <h3 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900">
-                      {feature.title}
-                    </h3>
-                 </div>
-                 <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed">
-                   {feature.desc}
-                 </p>
-                 <div className="h-1 w-20 bg-slate-100 rounded-full overflow-hidden">
-                    <motion.div 
-                       initial={{ x: -80 }}
-                       whileInView={{ x: 0 }}
-                       transition={{ duration: 1, delay: 0.5 }}
-                       className={`h-full w-full bg-${feature.color === 'emerald' ? 'emerald' : 'blue'}-500`} 
-                    />
-                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+  return (
+    <section id="technology" className="py-12 md:py-20 px-6 relative bg-slate-50 overflow-hidden">
+      {/* Tech Grid Background */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b981_1px,transparent_1px),linear-gradient(to_bottom,#10b981_1px,transparent_1px)] bg-[size:40px_40px]" />
       </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="flex flex-col items-center mb-12 space-y-2">
+           <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 leading-none">
+            Khawatir Isu Privacy dan Kualitas Perangkat?
+          </h2>
+          <p className="text-slate-500 text-sm md:text-base max-w-xl mx-auto font-medium">
+            Pelajari bagaimana JAGA bekerja
+          </p>
+        </div>
+
+        {/* Carousel Container */}
+        <div className="relative">
+          
+          {/* Mobile-Only Controls */}
+          <div className="lg:hidden absolute left-0 top-[35%] -translate-y-1/2 z-20 pointer-events-none w-full flex justify-between px-2">
+             <button 
+               onClick={() => scroll('left')}
+               className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-slate-100 flex items-center justify-center shadow-lg active:scale-90 pointer-events-auto"
+             >
+                <ChevronLeft className="w-4 h-4 text-slate-600" />
+             </button>
+             <button 
+               onClick={() => scroll('right')}
+               className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-slate-100 flex items-center justify-center shadow-lg active:scale-90 pointer-events-auto"
+             >
+                <ChevronRight className="w-4 h-4 text-slate-600" />
+             </button>
+          </div>
+
+          <div 
+            ref={scrollRef}
+            onScroll={handleScroll}
+            className="flex overflow-x-auto lg:grid lg:grid-cols-3 gap-6 pb-6 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0"
+          >
+            {techPillars.map((pillar, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="min-w-[80vw] md:min-w-[300px] lg:min-w-0 snap-center"
+              >
+                <div 
+                  className={`group relative bg-white rounded-[2.5rem] p-[2px] transition-all duration-700 h-full overflow-hidden ${activeIndex === idx ? 'scale-[1.01]' : 'opacity-40 scale-[0.98]'}`}
+                >
+                  {/* Border Rotating Segment Animation */}
+                  <AnimatePresence>
+                    {activeIndex === idx && (
+                      <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 rounded-[2.5rem] pointer-events-none"
+                      >
+                         <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0deg,transparent_280deg,#10b981_320deg,transparent_360deg)] animate-border-rotate" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <div className="bg-white rounded-[2.5rem] p-6 flex flex-col h-full relative z-10 shadow-sm border border-slate-100/50">
+                    {/* Image Area */}
+                    <div className="relative aspect-[3/2] md:aspect-[4/3] rounded-[1.8rem] overflow-hidden bg-[#fafafa] border border-slate-50 mb-6 group-hover:bg-white transition-all">
+                       <Image 
+                         src={pillar.img} 
+                         alt={pillar.title} 
+                         fill 
+                         className="object-cover" 
+                       />
+                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                    
+                    <div className="space-y-3 flex-grow">
+                      <div className="flex items-center gap-3">
+                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-500 shadow-sm ${activeIndex === idx ? 'bg-emerald-600 text-white' : 'bg-emerald-50 text-emerald-600'}`}>
+                            {pillar.icon}
+                         </div>
+                         <h3 className={`text-xl font-black tracking-tight transition-colors duration-500 ${activeIndex === idx ? 'text-emerald-600' : 'text-slate-900'}`}>{pillar.title}</h3>
+                      </div>
+                      
+                      <p className="text-slate-500 text-xs leading-relaxed font-medium line-clamp-3 md:line-clamp-none">{pillar.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Mobile Indicator Dots */}
+          <div className="flex lg:hidden items-center justify-center gap-3 mt-4">
+             {techPillars.map((_, idx) => (
+                <div key={idx} className={`h-1.5 rounded-full transition-all duration-500 ${activeIndex === idx ? 'w-8 bg-emerald-500' : 'w-1.5 bg-slate-200'}`} />
+             ))}
+          </div>
+        </div>
+
+        {/* Footer Note */}
+        <motion.div 
+           initial={{ opacity: 0 }}
+           whileInView={{ opacity: 0.5 }}
+           className="mt-12 text-center"
+        >
+           <p className="text-[10px] font-bold text-slate-400 italic">
+             *Khusus nomor telepon dan URL phising dikirim ke cloud untuk verifikasi keamanan real-time terhadap database phising dan ke seluruh pengguna.
+           </p>
+        </motion.div>
+      </div>
+
+      <style jsx global>{`
+        @keyframes border-rotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-border-rotate {
+          animation: border-rotate 5s linear infinite;
+        }
+      `}</style>
     </section>
   );
 }
