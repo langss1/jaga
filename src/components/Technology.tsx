@@ -15,19 +15,19 @@ export default function Technology() {
     {
       title: "Edge AI & TFLite",
       icon: <Cpu className="w-5 h-5" />,
-      desc: "Smartphone spesifikasi rendah tetap terlindungi dengan optimalisasi model AI yang super ringan.",
+      desc: t('tech_edge_desc'),
       img: "/assets/Phising.png"
     },
     {
       title: "100% On-Device",
       icon: <Lock className="w-5 h-5" />,
-      desc: "Data pribadi Anda diproses secara lokal di dalam perangkat* (Privacy First).",
+      desc: t('tech_on_device_desc'),
       img: "/assets/Privacy.png"
     },
     {
       title: "Low Device Optimized",
       icon: <Smartphone className="w-5 h-5" />,
-      desc: "Hemat baterai dan RAM. JAGA berjalan lancar di berbagai tipe smartphone di ASEAN.",
+      desc: t('tech_low_device_desc'),
       img: "/assets/AI.png"
     }
   ];
@@ -76,11 +76,11 @@ export default function Technology() {
 
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="flex flex-col items-center mb-12 space-y-2">
-           <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 leading-none">
-            Khawatir Isu Privacy dan Kualitas Perangkat?
+           <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 leading-none text-center">
+            {t('tech_privacy_title')}
           </h2>
           <p className="text-slate-500 text-sm md:text-base max-w-xl mx-auto font-medium">
-            Pelajari bagaimana JAGA bekerja
+            {t('tech_privacy_desc')}
           </p>
         </div>
 
@@ -177,7 +177,7 @@ export default function Technology() {
            className="mt-12 text-center"
         >
            <p className="text-[10px] font-bold text-slate-400 italic">
-             *Khusus nomor telepon dan URL phising dikirim ke cloud untuk verifikasi keamanan real-time terhadap database phising dan ke seluruh pengguna.
+             {t('tech_footnote')}
            </p>
         </motion.div>
       </div>

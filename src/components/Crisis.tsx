@@ -8,32 +8,29 @@ import Image from "next/image";
 
 const newsItems = [
   {
-    title: "43 juta serangan phising di asean pada 2022",
+    titleKey: "news_asean_2022",
     link: "https://media.sindonews.com/infografis/graph/24167/negara-di-asia-tenggara-yang-paling-banyak-diserang-phising",
     source: "SindoNews",
-    context: "ASEAN has become the #1 target for identity theft."
   },
   {
-    title: "900 juta serangan phising di asean pada 2024",
+    titleKey: "news_asean_2024",
     link: "https://www.kaspersky.com/about/press-releases/kaspersky-reports-nearly-900-million-phishing-attempts-in-2024-as-cyber-threats-increase",
     source: "Kaspersky",
-    context: "AI-scams are scaling faster than human defenses."
   },
   {
-    title: "Kerugian Indonesia akibat phising lebih dari 9 triliun",
+    titleKey: "news_id_loss",
     link: "https://id.investing.com/news/stock-market-news/kerugian-scam-tembus-rp9-triliun-bos-ojk-keluarkan-warning-2918292",
     source: "Investing.com",
-    context: "Local wealth is being drained by invisible threats."
   },
   {
-    title: "kerugian Phising di Singapura capai US$2.132 per orang",
+    titleKey: "news_singapore_title",
     link: "https://www.thestar.com.my/news/nation/2025/09/15/interactive-singapore-scam-victims-top-south-east-asia-losses-at-us2132-per-person-malaysia-second",
     source: "The Star",
-    context: "Privacy is a critical concern for personal security."
   }
 ];
 
 export default function Crisis() {
+  const { t } = useLanguage();
   const [index, setIndex] = useState(0);
 
   const nextSlide = useCallback(() => {
@@ -52,10 +49,8 @@ export default function Crisis() {
   return (
     <section id="crisis" className="py-12 px-6 relative bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        {/* Main "Urgency" Unit - Tightened for serious look */}
         <div className="bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl overflow-hidden border border-slate-100 flex flex-col lg:flex-row items-stretch">
           
-          {/* Left: Phishing Image - No floating elements */}
           <div className="lg:w-[40%] relative min-h-[250px] lg:min-h-full">
              <Image 
                src="/assets/masalah.png" 
@@ -66,7 +61,6 @@ export default function Crisis() {
              <div className="absolute inset-0 bg-slate-900/5" />
           </div>
 
-          {/* Right: Critical Text - Professional & On-Point */}
           <div className="lg:w-[60%] p-8 md:p-12 flex flex-col justify-center gap-6">
              
              <div className="space-y-4">
@@ -78,7 +72,6 @@ export default function Crisis() {
                 </p>
              </div>
 
-             {/* News Slider - Integrated/Tight UI */}
              <div className="relative pt-4">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -91,7 +84,7 @@ export default function Crisis() {
                   >
                     <div className="p-6 md:p-8 bg-slate-100/50 border border-slate-200 rounded-3xl relative">
                        <h3 className="text-xl md:text-2xl font-black text-slate-900 leading-tight mb-4 tracking-tight min-h-[4rem] md:min-h-[4.5rem] flex items-center">
-                         "{newsItems[index].title}"
+                         "{t(newsItems[index].titleKey)}"
                        </h3>
                        <div className="flex items-center justify-between">
                           <span className="text-[9px] font-black uppercase tracking-widest text-emerald-600 bg-emerald-50 px-3 py-1 rounded-lg">
@@ -111,7 +104,6 @@ export default function Crisis() {
                   </motion.div>
                 </AnimatePresence>
 
-                {/* Micro Navigation - Minimalist */}
                 <div className="flex items-center justify-between mt-6">
                    <div className="flex gap-2">
                       {newsItems.map((_, i) => (

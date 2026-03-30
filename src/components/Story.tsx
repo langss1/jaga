@@ -39,7 +39,7 @@ export default function Story() {
            className="text-center mb-16 px-4"
         >
            <h2 className="text-4xl md:text-6xl font-serif italic text-slate-900 tracking-tighter mb-4">
-             Message from <span className="text-emerald-500 underline decoration-emerald-200 decoration-4">Emma.</span>
+             {t('story_title')} <span className="text-emerald-500 underline decoration-emerald-200 decoration-4">{t('story_emma')}</span>
            </h2>
         </motion.div>
 
@@ -76,22 +76,22 @@ export default function Story() {
 
              <motion.div variants={itemVariants} className="space-y-4 max-w-2xl">
                 <p className="text-xl md:text-3xl font-serif italic text-slate-800 leading-[1.6] tracking-tight">
-                  "I worked tirelessly for my parents' medical fund. One bank alert changed everything. I clicked the link, and in minutes, 
+                  "{t('story_quote_main')}
                   <motion.span 
                     initial={{ backgroundSize: "0% 100%" }}
                     whileInView={{ backgroundSize: "100% 100%" }}
                     transition={{ delay: 1.2, duration: 0.8 }}
                     className="bg-gradient-to-r from-yellow-200 to-yellow-100 bg-no-repeat bg-left px-1 rounded-sm"
                   >
-                    my entire life's work vanished
+                    {t('story_vanished')}
                   </motion.span> 
-                  into the void of a phishing scam."
+                  {t('story_quote_main_2')}"
                 </p>
 
                 <div className="flex flex-col items-center gap-2">
                    <div className="flex flex-col items-center">
                       <h3 className="text-lg font-black text-slate-900 uppercase tracking-tighter">Emma S.</h3>
-                      <p className="text-[9px] font-black text-emerald-500 uppercase tracking-widest mt-1">Phishing Victim #12401</p>
+                      <p className="text-[9px] font-black text-emerald-500 uppercase tracking-widest mt-1">{t('story_victim_label')} #12401</p>
                    </div>
                 </div>
              </motion.div>
@@ -122,7 +122,7 @@ export default function Story() {
                 
                 <div className="text-center md:text-left space-y-4 max-w-sm">
                    <p className="text-sm font-bold text-slate-500 italic leading-relaxed">
-                     "Imagine this happening… not just to me… but to millions. Our families, our countries, our future. We can’t let this continue."
+                     "{t('story_quote_secondary')}"
                    </p>
                 </div>
              </motion.div>
@@ -135,7 +135,7 @@ export default function Story() {
           viewport={{ once: true }}
           className="text-center mt-8 text-[9px] font-black uppercase tracking-[0.4em] text-slate-400 italic"
         >
-          Just a fictional story
+          {t('story_fictional')}
         </motion.p>
 
       </div>

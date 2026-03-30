@@ -1,20 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { AlertCircle, ArrowUpRight, Newspaper, Globe, ShieldAlert } from "lucide-react";
+import { AlertCircle, ArrowUpRight, Newspaper, Globe } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function News() {
+  const { t } = useLanguage();
+
   const newsPrompts = [
     {
-      title: "Berita Phising Terkini di Indonesia",
-      desc: "Pelajari tren penipuan URL yang sedang viral di grup WhatsApp dan SMS.",
+      title: t('news_id_card_title'),
+      desc: t('news_id_card_desc'),
       query: "berita phising terkini di Indonesia 2026",
       icon: <AlertCircle className="w-6 h-6" />,
       colorClass: "text-red-500"
     },
     {
       title: "ASEAN Cybersecurity Updates",
-      desc: "Laporan harian tentang serangan siber di kawasan Asia Tenggara.",
+      desc: t('news_asean_card_desc'),
       query: "phishing attacks in southeast asia recent news",
       icon: <Globe className="w-6 h-6" />,
       colorClass: "text-emerald-500"
@@ -35,7 +38,7 @@ export default function News() {
       <div className="absolute inset-x-0 bottom-0 h-px bg-slate-100" />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 text-center md:text-left">
            <motion.div
              initial={{ opacity: 0, x: -20 }}
              whileInView={{ opacity: 1, x: 0 }}
@@ -43,7 +46,7 @@ export default function News() {
              className="space-y-4"
            >
               <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 leading-none">
-                 Cari berita terkini<br/>tentang phising
+                 {t('news_section_title')}
               </h2>
            </motion.div>
            
@@ -53,7 +56,7 @@ export default function News() {
               viewport={{ once: true }}
               className="text-slate-500 text-lg md:text-xl font-medium max-w-sm"
            >
-              Tekan tombol berikut untuk mempelajari tren ancaman phising terbaru secara real-time.
+              {t('news_section_desc')}
            </motion.p>
         </div>
 
@@ -88,7 +91,7 @@ export default function News() {
                    
                    <div className="mt-8 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-600">
                       <Newspaper className="w-4 h-4" />
-                      Cari Berita
+                      {t('news_btn_search')}
                    </div>
                 </button>
               </motion.div>

@@ -33,9 +33,9 @@ export default function Navbar() {
           className="flex items-center gap-6"
         >
           <div className="hidden lg:flex items-center gap-6 mr-2">
-            <a href="#features" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-600 transition-colors">Solutions</a>
-            <a href="#crisis" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-600 transition-colors">Crisis</a>
-            <a href="#technology" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-600 transition-colors">Arch</a>
+            <a href="#features" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-600 transition-colors">{t('nav_solutions')}</a>
+            <a href="#crisis" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-600 transition-colors">{t('nav_crisis')}</a>
+            <a href="#technology" className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-600 transition-colors">{t('nav_arch')}</a>
           </div>
 
           <div className="flex items-center bg-slate-100 rounded-xl p-0.5 border border-slate-200 scale-90">
@@ -52,13 +52,6 @@ export default function Navbar() {
               EN
             </button>
           </div>
-
-          <button className="hidden sm:flex px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-black uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-emerald-200 group active:scale-95">
-            <div className="flex items-center gap-2">
-               <Terminal className="w-3.5 h-3.5" />
-               View Demo
-            </div>
-          </button>
         </motion.div>
       </div>
     </nav>

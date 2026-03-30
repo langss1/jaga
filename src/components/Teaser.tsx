@@ -1,9 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Play, Youtube } from "lucide-react";
+import { Youtube } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Teaser() {
+  const { t } = useLanguage();
+
   return (
     <section className="py-12 md:py-20 px-6 relative bg-slate-900 overflow-hidden min-h-fit">
       {/* Cinematic Background Glows */}
@@ -18,7 +21,7 @@ export default function Teaser() {
            className="mb-10"
         >
            <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-white">
-             Video Teaser JAGA
+             {t('teaser_title')}
            </h2>
         </motion.div>
 
@@ -48,7 +51,7 @@ export default function Teaser() {
              className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl transition-all font-bold text-xs"
            >
               <Youtube className="w-4 h-4 text-red-500" />
-              Tonton di YouTube
+              {t('teaser_youtube')}
            </a>
         </div>
       </div>
