@@ -67,7 +67,7 @@ export default function Story() {
                 className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-xl relative ring-8 ring-emerald-50 ring-offset-0"
              >
                 <Image 
-                  src="/assets/emma/profil.png" 
+                  src="/assets/Emma/profil.png" 
                   alt="Emma" 
                   fill 
                   className="object-cover" 
@@ -112,7 +112,7 @@ export default function Story() {
                   className="w-28 h-28 md:w-36 md:h-36 bg-slate-50 p-2.5 rounded-2xl shadow-lg relative group transition-transform"
                 >
                    <Image 
-                     src="/assets/emma/Link Klik.png" 
+                     src="/assets/Emma/Link Klik.png" 
                      alt="The Trap" 
                      fill 
                      className="object-cover rounded-xl" 
