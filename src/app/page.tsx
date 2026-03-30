@@ -5,6 +5,8 @@ import Crisis from "@/components/Crisis";
 import Story from "@/components/Story";
 import Solution from "@/components/Solution";
 import Technology from "@/components/Technology";
+import Teaser from "@/components/Teaser";
+import News from "@/components/News";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -17,6 +19,8 @@ export default function Home() {
       <Story />
       <Solution />
       <Technology />
+      <Teaser />
+      <News />
       <Footer />
     </main>
   );
